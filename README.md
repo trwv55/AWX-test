@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# AWX Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Проект представляет собой форму вывода средств, разработанную с использованием современных технологий и архитектурных подходов.
 
-Currently, two official plugins are available:
+## 🚀 Технологии
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   **React 19**
+-   **TypeScript**
+-   **Vite**
+-   **Material-UI (MUI)**
 
-## React Compiler
+## 📦 Локальный запуск
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Требования
 
-## Expanding the ESLint configuration
+-   Node.js
+-   npm или yarn
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Установка зависимостей
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Запуск в режиме разработки
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Приложение будет доступно по адресу `http://localhost:5173` (или другому порту, если 5173 занят).
+
+### Сборка для production
+
+```bash
+npm run build
+```
+
+### Просмотр production сборки
+
+```bash
+npm run preview
+```
+
+### Проверка кода линтером
+
+```bash
+npm run lint
+```
+
+## 🎨 Стилизация
+
+Стили в проекте определяются централизованно через файл `src/theme.ts`.
+
+Основные особенности:
+
+-   Глобальные стили для компонентов MUI (Button, Paper, IconButton, Checkbox, Radio и др.)
+-   Кастомные варианты компонентов (например, `volumeInput` и `detailsItem` для Paper)
+-   Кастомные варианты типографики (например, `sectionTitle`)
+-   Централизованное управление цветами и отступами
+
+Все компоненты используют тему через `ThemeProvider` из Material-UI, что обеспечивает единообразие стилей во всем приложении.
+
+## 📁 Архитектура проекта (FSD)
+
+Проект использует архитектуру **Feature-Sliced Design (FSD)** с упрощенной структурой, которая позволяет легко расширять функциональность.
+
+### Структура директорий
+
+```
+src/
+├── features/          # Бизнес-логика и фичи приложения
+│   └── withdrawal-form/  # Форма вывода средств
+│       ├── components/   # Компоненты, специфичные для фичи
+│       ├── DetailsSection/
+│       ├── MethodSection/
+│       └── VolumesSection/
+│
+├── shared/            # Переиспользуемые модули
+│   ├── ui/            # UI-компоненты (Checkbox, RadioButton, etc.)
+│   └── constants/     # Общие константы
+│
+├── theme.ts           # Конфигурация темы Material-UI
+├── App.tsx
+└── main.tsx
+```
+
+### Принципы организации
+
+-   **features/** — содержит бизнес-логику и компоненты, специфичные для конкретных фич
+-   **shared/** — переиспользуемые компоненты и утилиты, которые могут использоваться в разных фичах
+-   Каждая фича изолирована и может быть легко расширена или переиспользована
+-   Структура позволяет масштабировать проект без излишнего усложнения
+
+## 📝 Скрипты
+
+-   `npm run dev` — запуск dev-сервера
+-   `npm run build` — сборка проекта
+-   `npm run preview` — предпросмотр production сборки
+-   `npm run lint` — проверка кода линтером
